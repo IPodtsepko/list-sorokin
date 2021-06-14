@@ -1,4 +1,5 @@
 #pragma once
+#include <cassert>
 #include <iterator>
 
 template <typename T>
@@ -125,12 +126,14 @@ bool list<T>::empty() const
 template <typename T>
 T& list<T>::front()
 {
+    assert(!empty());
     return *begin();
 }
 
 template <typename T>
 T const& list<T>::front() const
 {
+    assert(!empty());
     return *begin();
 }
 
@@ -143,18 +146,21 @@ void list<T>::push_front(T const& val)
 template <typename T>
 void list<T>::pop_front()
 {
+    assert(!empty());
     erase(begin());
 }
 
 template <typename T>
 T& list<T>::back()
 {
+    assert(!empty());
     return *std::prev(end());
 }
 
 template <typename T>
 T const& list<T>::back() const
 {
+    assert(!empty());
     return *std::prev(end());
 }
 
@@ -167,6 +173,7 @@ void list<T>::push_back(T const& val)
 template <typename T>
 void list<T>::pop_back()
 {
+    assert(!empty());
     erase(std::prev(end()));
 }
 

@@ -1,13 +1,13 @@
 #include <gtest/gtest.h>
 #include <sstream>
 
-//#include "list.h"
-#include <list>
+#include "list.h"
+//#include <list>
 
 #include "test-helpers/element.h"
 #include "test-helpers/fault_injection.h"
 
-using container = std::list<element>;
+using container = list<element>;
 
 template <typename T>
 T const& as_const(T& obj)

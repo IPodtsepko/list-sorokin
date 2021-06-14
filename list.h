@@ -287,11 +287,11 @@ struct list<T>::basic_iterator
     U& operator*() const;
     U* operator->() const;
 
-    iterator& operator++() &;
-    iterator operator++(int) &;
+    basic_iterator& operator++() &;
+    basic_iterator operator++(int) &;
 
-    iterator& operator--() &;
-    iterator operator--(int) &;
+    basic_iterator& operator--() &;
+    basic_iterator operator--(int) &;
 
     friend bool operator==(basic_iterator const& lhs, basic_iterator const& rhs)
     {
@@ -335,32 +335,34 @@ U* list<T>::basic_iterator<U>::operator->() const
 
 template <typename T>
 template <typename U>
-typename list<T>::iterator& list<T>::basic_iterator<U>::operator++() &
+typename list<T>::basic_iterator<U>& list<T>::basic_iterator<U>::operator++() &
 {
     p = p->next;
+    return *this;
 }
 
 template <typename T>
 template <typename U>
-typename list<T>::iterator list<T>::basic_iterator<U>::operator++(int) &
+typename list<T>::basic_iterator<U> list<T>::basic_iterator<U>::operator++(int) &
 {
-    iterator res(*this);
+    basic_iterator res(*this);
     ++*this;
     return res;
 }
 
 template <typename T>
 template <typename U>
-typename list<T>::iterator& list<T>::basic_iterator<U>::operator--() &
+typename list<T>::basic_iterator<U>& list<T>::basic_iterator<U>::operator--() &
 {
     p = p->prev;
+    return *this;
 }
 
 template <typename T>
 template <typename U>
-typename list<T>::iterator list<T>::basic_iterator<U>::operator--(int) &
+typename list<T>::basic_iterator<U> list<T>::basic_iterator<U>::operator--(int) &
 {
-    iterator res(*this);
+    basic_iterator res(*this);
     --*this;
     return res;
 }

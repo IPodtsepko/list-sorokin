@@ -91,6 +91,50 @@ private:
 };
 
 template <typename T>
+template <typename U>
+struct list<T>::basic_iterator
+{
+    using iterator_category = std::bidirectional_iterator_tag;
+    using value_type = U;
+    using difference_type = std::ptrdiff_t;
+    using pointer = U*;
+    using reference = U&;
+
+    basic_iterator() = default;
+    basic_iterator(basic_iterator const&) = default;
+
+    template <typename V, typename = std::enable_if_t<std::is_const_v<U> && !std::is_const_v<V>>>
+    basic_iterator(basic_iterator<V> const&);
+
+    U& operator*() const;
+    U* operator->() const;
+
+    basic_iterator& operator++() &;
+    basic_iterator operator++(int) &;
+
+    basic_iterator& operator--() &;
+    basic_iterator operator--(int) &;
+
+    friend bool operator==(basic_iterator const& lhs, basic_iterator const& rhs)
+    {
+        return lhs.p == rhs.p;
+    }
+
+    friend bool operator!=(basic_iterator const& lhs, basic_iterator const& rhs)
+    {
+        return !(lhs == rhs);
+    }
+
+private:
+    explicit basic_iterator(node* p);
+
+private:
+    node* p;
+
+    friend struct list<T>;
+};
+
+template <typename T>
 list<T>::list()
     : fake(&fake, &fake)
 {}
@@ -291,50 +335,6 @@ list<T>::vnode::vnode(node* next, node* prev, T const& value)
     : node(next, prev)
     , value(value)
 {}
-
-template <typename T>
-template <typename U>
-struct list<T>::basic_iterator
-{
-    using iterator_category = std::bidirectional_iterator_tag;
-    using value_type = U;
-    using difference_type = std::ptrdiff_t;
-    using pointer = U*;
-    using reference = U&;
-
-    basic_iterator() = default;
-    basic_iterator(basic_iterator const&) = default;
-
-    template <typename V, typename = std::enable_if_t<std::is_const_v<U> && !std::is_const_v<V>>>
-    basic_iterator(basic_iterator<V> const&);
-
-    U& operator*() const;
-    U* operator->() const;
-
-    basic_iterator& operator++() &;
-    basic_iterator operator++(int) &;
-
-    basic_iterator& operator--() &;
-    basic_iterator operator--(int) &;
-
-    friend bool operator==(basic_iterator const& lhs, basic_iterator const& rhs)
-    {
-        return lhs.p == rhs.p;
-    }
-
-    friend bool operator!=(basic_iterator const& lhs, basic_iterator const& rhs)
-    {
-        return !(lhs == rhs);
-    }
-
-private:
-    explicit basic_iterator(node* p);
-
-private:
-    node* p;
-
-    friend struct list<T>;
-};
 
 template <typename T>
 template <typename U>

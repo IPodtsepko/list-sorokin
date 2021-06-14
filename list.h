@@ -53,14 +53,21 @@ struct list
     friend void swap(list& a, list& b)
     {
         using std::swap;
-        swap(a.fake.next, b.fake.next);
-        swap(a.fake.prev, b.fake.prev);
 
-        a.fake.next->prev = &a.fake;
-        a.fake.prev->next = &a.fake;
+        node* a_prev = a.fake.prev;
+        node* a_next = a.fake.next;
 
-        b.fake.next->prev = &b.fake;
-        b.fake.prev->next = &b.fake;
+        node* b_prev = b.fake.prev;
+        node* b_next = b.fake.next;
+
+        a_prev->next = &b.fake;
+        a_next->prev = &b.fake;
+
+        b_prev->next = &a.fake;
+        b_next->prev = &a.fake;
+
+        std::swap(a.fake.next, b.fake.next);
+        std::swap(a.fake.prev, b.fake.prev);
     }
 
 private:

@@ -359,7 +359,7 @@ U* list<T>::basic_iterator<U>::operator->() const
 
 template <typename T>
 template <typename U>
-typename list<T>::basic_iterator<U>& list<T>::basic_iterator<U>::operator++() &
+typename list<T>::template basic_iterator<U>& list<T>::basic_iterator<U>::operator++() &
 {
     p = p->next;
     return *this;
@@ -367,7 +367,7 @@ typename list<T>::basic_iterator<U>& list<T>::basic_iterator<U>::operator++() &
 
 template <typename T>
 template <typename U>
-typename list<T>::basic_iterator<U> list<T>::basic_iterator<U>::operator++(int) &
+typename list<T>::template basic_iterator<U> list<T>::basic_iterator<U>::operator++(int) &
 {
     basic_iterator res(*this);
     ++*this;
@@ -376,7 +376,7 @@ typename list<T>::basic_iterator<U> list<T>::basic_iterator<U>::operator++(int) 
 
 template <typename T>
 template <typename U>
-typename list<T>::basic_iterator<U>& list<T>::basic_iterator<U>::operator--() &
+typename list<T>::template basic_iterator<U>& list<T>::basic_iterator<U>::operator--() &
 {
     p = p->prev;
     return *this;
@@ -384,7 +384,7 @@ typename list<T>::basic_iterator<U>& list<T>::basic_iterator<U>::operator--() &
 
 template <typename T>
 template <typename U>
-typename list<T>::basic_iterator<U> list<T>::basic_iterator<U>::operator--(int) &
+typename list<T>::template basic_iterator<U> list<T>::basic_iterator<U>::operator--(int) &
 {
     basic_iterator res(*this);
     --*this;

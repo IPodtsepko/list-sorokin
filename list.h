@@ -15,6 +15,7 @@ struct list
     list();
     list(list const&);
     list& operator=(list);
+    ~list();
 
     bool empty() const;
 
@@ -100,6 +101,12 @@ list<T>& list<T>::operator=(list other)
     swap(other, *this);
     other.clear();
     return *this;
+}
+
+template <typename T>
+list<T>::~list()
+{
+    clear();
 }
 
 template <typename T>
@@ -244,6 +251,9 @@ typename list<T>::iterator list<T>::erase(const_iterator first, const_iterator l
 template <typename T>
 void list<T>::splice(const_iterator pos, list& other, const_iterator first, const_iterator last)
 {
+    if (first == last)
+        return;
+
     auto triswap = [](node*& a, node*& b, node*& c)
     {
         node* tmp = a;
